@@ -1,0 +1,3 @@
+[deps]
+ConvolutionF16 = "e4dbbae9-59ee-413d-95b5-ca68f1f16b53"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
