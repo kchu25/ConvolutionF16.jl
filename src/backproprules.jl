@@ -149,7 +149,7 @@ function conv_2D_backprop_F_fillQ(Q, R̄, X)
         end
         val = 0
         for n in 1:N
-            @inbounds += R̄[h+c-1,w+e-1,m,n] * X[c,e,1,n]
+            @inbounds val += R̄[h+c-1,w+e-1,m,n] * X[c,e,1,n]
         end
         Q[h,w,c,e,m] = val
     end
