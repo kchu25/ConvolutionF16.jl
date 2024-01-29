@@ -6,9 +6,11 @@ function conv_depthwise_1D_backprop_F_fillQ(Q, R̄, X)
     D, C, M = size(Q)
     N = size(X, 3)
     if d ≤ D && c ≤ C && m ≤ M
+        val = 0
         for n in 1:N
-            @inbounds Q[d,c,m] += R̄[d+c-1,m,n] * X[c,m,n]
+            @inbounds val += R̄[d+c-1,m,n] * X[c,m,n]
         end
+        Q[d,c,m] = val
     end
     return nothing
 end
@@ -58,10 +60,11 @@ function conv_depthwise_2D_backprop_F_fillQ(Q, R̄, X)
         else
             e = ce ÷ C + 1; c = ce - (e-1)*C
         end
-
+        val = 0
         for n in 1:N
-            @inbounds Q[h,w,c,e,m] += R̄[h+c-1,w+e-1,m,n] * X[c,e,m,n]
+            @inbounds val += R̄[h+c-1,w+e-1,m,n] * X[c,e,m,n]
         end
+        Q[h,w,c,e,m] = val
     end
     return nothing
 end
@@ -94,9 +97,11 @@ function conv_1D_backprop_F_fillQ(Q, R̄, X)
     D, C, M = size(Q)
     N = size(X, 3)
     if d ≤ D && c ≤ C && m ≤ M
+        val = 0
         for n in 1:N
-            @inbounds Q[d,c,m] += R̄[d+c-1,m,n] * X[c,1,n] # X[c,1,n] here, 1 is key
+            @inbounds val += R̄[d+c-1,m,n] * X[c,1,n] # X[c,1,n] here, 1 is key
         end
+        Q[d,c,m] = val
     end
     return nothing
 end
@@ -142,10 +147,11 @@ function conv_2D_backprop_F_fillQ(Q, R̄, X)
         else
             e = ce ÷ C + 1; c = ce - (e-1)*C
         end
-
+        val = 0
         for n in 1:N
-            @inbounds Q[h,w,c,e,m] += R̄[h+c-1,w+e-1,m,n] * X[c,e,1,n]
+            @inbounds += R̄[h+c-1,w+e-1,m,n] * X[c,e,1,n]
         end
+        Q[h,w,c,e,m] = val
     end
     return nothing
 end
@@ -178,9 +184,11 @@ function crosscor_depthwise_1D_backprop_F_fillQ(Q, R̄, X)
     D, _, M = size(Q)
     N = size(X, 3)
     if d1 ≤ D && d2 ≤ D && m ≤ M
+        val = 0
         for n in 1:N
-            @inbounds Q[d1,d2,m] += R̄[d2,m,n] * X[d2,m,n]
+            @inbounds val += R̄[d2,m,n] * X[d2,m,n]
         end
+        Q[d1,d2,m] = val
     end
     return nothing
 end
@@ -212,9 +220,11 @@ function crosscor_1D_backprop_F_fillQ(Q, R̄, X)
     D, _, M = size(Q)
     N = size(X, 3)
     if d1 ≤ D && d2 ≤ D && m ≤ M
+        val = 0
         for n in 1:N
-            @inbounds Q[d1,d2,m] += R̄[d2,m,n] * X[d2,1,n]
+            @inbounds val += R̄[d2,m,n] * X[d2,1,n]
         end
+        Q[d1,d2,m] = val
     end
     return nothing
 end
