@@ -197,7 +197,7 @@ note:
     X needs to have shape (C, M, N)
     The result array will have shape (C+D-1, M, N)
 """
-function conv_depthwise_1D(F, X; t=9)
+function conv_depthwise_1D(F, X; t=8)
     D, _, M = size(F)
     C, _, N = size(X)
     R = CUDA.zeros(eltype(F), (C+D-1, M, N));
@@ -205,7 +205,7 @@ function conv_depthwise_1D(F, X; t=9)
     return R
 end
 
-function conv_1D(F, X; t=9)
+function conv_1D(F, X; t=8)
     D, _, M = size(F)
     C, _, N = size(X)
     R = CUDA.zeros(eltype(F), (C+D-1, M, N));
@@ -213,7 +213,7 @@ function conv_1D(F, X; t=9)
     return R
 end
 
-function conv_depthwise_2D(F, X; t=9)
+function conv_depthwise_2D(F, X; t=8)
     H, W, _, M = size(F)
     C, E, _, N = size(X)
     P, Q, MN = H+C-1, W+E-1, M*N
@@ -222,7 +222,7 @@ function conv_depthwise_2D(F, X; t=9)
     return R
 end
 
-function conv_2D(F, X; t=9)
+function conv_2D(F, X; t=8)
     H, W, _, M = size(F)
     C, E, _, N = size(X)
     P, Q, MN = H+C-1, W+E-1, M*N
@@ -231,7 +231,7 @@ function conv_2D(F, X; t=9)
     return R
 end
 
-function crosscor_depthwise_1D(F, X; t=9)
+function crosscor_depthwise_1D(F, X; t=8)
     D, _, M = size(F)
     C, _, N = size(X)
     R = CUDA.zeros(eltype(F), (C-D+1, M, N));
@@ -239,7 +239,7 @@ function crosscor_depthwise_1D(F, X; t=9)
     return R
 end
 
-function crosscor_1D(F, X; t=9)
+function crosscor_1D(F, X; t=8)
     D, _, M = size(F)
     C, _, N = size(X)
     R = CUDA.zeros(eltype(F), (C-D+1, M, N));
@@ -247,7 +247,7 @@ function crosscor_1D(F, X; t=9)
     return R
 end
 
-function crosscor_depthwise_2D(F, X; t=9)
+function crosscor_depthwise_2D(F, X; t=8)
     H, W, _, M = size(F)
     C, E, _, N = size(X)
     P, Q, MN = C-H+1,  E-W+1, M*N
@@ -256,7 +256,7 @@ function crosscor_depthwise_2D(F, X; t=9)
     return R
 end
 
-function crosscor_2D(F, X; t=9)
+function crosscor_2D(F, X; t=8)
     H, W, _, M = size(F)
     C, E, _, N = size(X)
     P, Q, MN = C-H+1,  E-W+1, M*N
