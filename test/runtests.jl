@@ -4,9 +4,6 @@ using Test
 
 @testset "ConvolutionF16.jl" begin
     # Write your tests here.
-    str = "Hi"
-    @test str == "Hi"
-
     n_grps = 5
 
     # test conv_depthwise_1D #######################
@@ -72,7 +69,6 @@ using Test
     end
     @test all(gs_flux[f_gpu] .≈ gs[f_gpu])
     @test all(gs_flux[x_gpu] .≈ gs[x_gpu])
-
 
     # test conv_depthwise_2D #######################
     f = rand(2,2,1,n_grps)
@@ -141,8 +137,5 @@ using Test
     end
     @test all(gs_flux[f_gpu] .≈ gs[f_gpu])
     @test all(gs_flux[x_gpu] .≈ gs[x_gpu])
-    
-
-
 
 end
